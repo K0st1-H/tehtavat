@@ -16,9 +16,9 @@ enum PeranTyyppi
 
 class Nuoli
 {
-    public KarjenTyyppi KarjenTyyppi { get; private set; }
-    public PeranTyyppi PeranTyyppi { get; private set; }
-    public int VarrenPituus { get; private set; }
+    private KarjenTyyppi karjenTyyppi;
+    private PeranTyyppi peranTyyppi;
+    private int varrenPituus;
 
     public Nuoli(KarjenTyyppi karjenTyyppi, PeranTyyppi peranTyyppi, int varrenPituus)
     {
@@ -27,14 +27,29 @@ class Nuoli
             throw new ArgumentException("Varren pituuden tulee olla 60 ja 100 cm välillä.");
         }
 
-        KarjenTyyppi = karjenTyyppi;
-        PeranTyyppi = peranTyyppi;
-        VarrenPituus = varrenPituus;
+        this.karjenTyyppi = karjenTyyppi;
+        this.peranTyyppi = peranTyyppi;
+        this.varrenPituus = varrenPituus;
+    }
+
+    public KarjenTyyppi GetKarjenTyyppi()
+    {
+        return karjenTyyppi;
+    }
+
+    public PeranTyyppi GetPeranTyyppi()
+    {
+        return peranTyyppi;
+    }
+
+    public int GetVarrenPituus()
+    {
+        return varrenPituus;
     }
 
     public double PalautaHinta()
     {
-        double karjenHinta = KarjenTyyppi switch
+        double karjenHinta = karjenTyyppi switch
         {
             KarjenTyyppi.Puu => 3,
             KarjenTyyppi.Teras => 5,
@@ -42,8 +57,8 @@ class Nuoli
             _ => throw new InvalidOperationException("Virheellinen kärjen tyyppi")
         };
 
-        double peranHinta = (int)PeranTyyppi;
-        double varrenHinta = VarrenPituus * 0.05;
+        double peranHinta = (int)peranTyyppi;
+        double varrenHinta = varrenPituus * 0.05;
         return karjenHinta + peranHinta + varrenHinta;
     }
 }
@@ -81,3 +96,4 @@ class Program
         }
     }
 }
+
