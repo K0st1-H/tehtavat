@@ -1,5 +1,7 @@
 ﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 // Pääluokka tavaroille
 abstract class Tavara
@@ -12,15 +14,17 @@ abstract class Tavara
         Paino = paino;
         Tilavuus = tilavuus;
     }
+
+    public abstract override string ToString();
 }
 
 // Eri tavaraluokat
-class Nuoli : Tavara { public Nuoli() : base(0.1, 0.05) { } }
-class Jousi : Tavara { public Jousi() : base(1, 4) { } }
-class Köysi : Tavara { public Köysi() : base(1, 1.5) { } }
-class Vesi : Tavara { public Vesi() : base(2, 2) { } }
-class RuokaAnnoss : Tavara { public RuokaAnnoss() : base(1, 0.5) { } }
-class Miekka : Tavara { public Miekka() : base(5, 3) { } }
+class Nuoli : Tavara { public Nuoli() : base(0.1, 0.05) { } public override string ToString() => "Nuoli"; }
+class Jousi : Tavara { public Jousi() : base(1, 4) { } public override string ToString() => "Jousi"; }
+class Köysi : Tavara { public Köysi() : base(1, 1.5) { } public override string ToString() => "Köysi"; }
+class Vesi : Tavara { public Vesi() : base(2, 2) { } public override string ToString() => "Vesi"; }
+class RuokaAnnoss : Tavara { public RuokaAnnoss() : base(1, 0.5) { } public override string ToString() => "Ruoka-annos"; }
+class Miekka : Tavara { public Miekka() : base(5, 3) { } public override string ToString() => "Miekka"; }
 
 // Reppu-luokka
 class Reppu
@@ -57,9 +61,7 @@ class Reppu
 
     public override string ToString()
     {
-        return $"Reppu: {NykyinenMäärä}/{maxTavarat} tavaraa, " +
-               $"Paino {NykyinenPaino}/{maxPaino} kg, " +
-               $"Tilavuus {NykyinenTilavuus}/{maxTilavuus} L";
+        return tavarat.Count == 0 ? "Reppu on tyhjä." : $"Reppussa on seuraavat tavarat: {string.Join(", ", tavarat)}";
     }
 }
 
@@ -111,4 +113,3 @@ class Program
         }
     }
 }
-
